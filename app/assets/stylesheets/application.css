@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+.hilite {
+   margin: 0 0 1em;
+  padding: 5px;
+  background-color: rgb(0, 200, 0);;
+  color: white;
+  font-size: 1em;
+  font-style: normal;   
+}
