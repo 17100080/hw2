@@ -20,6 +20,10 @@ resources :movies do
     get 'match_title'
     put 'updating'
   end
+  collection do
+    get 'to_delete'
+    post 'deleting'
+  end
 end
   
   # Example resource route with options:

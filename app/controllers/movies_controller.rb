@@ -11,8 +11,43 @@ class MoviesController < ApplicationController
   end
 
 
+  def to_delete
+  end
+  
+  def deleting
+   @vars=params[:movie]
+   @t=@vars[:title]
+   
+   
+    if (@t.length!=0)
+            @movie=Movie.find_by(title: @vars[:title])
+            if(@movie)
+              @movie.destroy
+              flash[:notice] = "movie with title #{@t} deleted"
+            else
+              flash[:notice] = "No movie match to delete"
+            end
+  
+          
+    elsif (@vars[:rating] != 'None')
+
+          @mrating =  @vars[:rating]
+          @selected = Movie.where('rating = ?',@mrating)
+          @selected.each do |x|
+            x.destroy
+          end
+          flash[:notice] = "All movies with rating #{@mrating} deleted"
+    else
+      flash[:notice] = "No movie match to delete"
+      
+    end
+      redirect_to movies_path
+     
+  end
+  
   def match_title
   end
+  
   def updating
         @var = params[:movie]
         @movie = Movie.find_by(title: @var[:name])
@@ -35,11 +70,7 @@ class MoviesController < ApplicationController
   
   end
 
-  
-  
-  def deleting
 
-  end
 
   def index
     if params[:sort_by_t]
