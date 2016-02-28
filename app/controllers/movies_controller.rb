@@ -10,6 +10,37 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+
+  def match_title
+  end
+  def updating
+        @var = params[:movie]
+        @movie = Movie.find_by(title: @var[:name])
+     
+      if (!(@movie))
+          flash[:notice] = "Movie not found"
+      else
+          @mtitle =  @var[:title]
+          @mrelease =  @var[:release_date]
+          @mrating =  @var[:rating]
+          if @mrating !='' && @mrelease !='' && @mtitle !=''
+            @movie.update_attributes!(movie_params)
+            flash[:notice] = "#{@movie.title} #{@movie.release_date} #{@movie.rating} was successfully updated."
+          else
+           flash[:notice] = "Nothing changed"
+          end
+      end
+      redirect_to movies_path
+    
+  
+  end
+
+  
+  
+  def deleting
+
+  end
+
   def index
     if params[:sort_by_t]
       @movies = Movie.order(params[:sort_by_t]);@var1='hilite'
