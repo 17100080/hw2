@@ -73,15 +73,26 @@ class MoviesController < ApplicationController
 
 
   def index
+    
+    @all_ratings = Movie.all_ratings
+    @movies = Movie.all
+    @var=''
+    @selRatings = @all_ratings
+    if (!params[:ratings].nil?) 
+      
+      temp = []
+      params[:ratings].each {|key, value| temp.push(key) }
+      
+      @movies = Movie.where(rating: temp)
+      
+    end
+    
     if params[:sort_by_t]
       @movies = Movie.order(params[:sort_by_t]);@var1='hilite'
       
     elsif params[:sort_by_r]
       @movies=Movie.order(params[:sort_by_r]);@var2='hilite'
-      
-    else 
-      @movies=Movie.all ;@var=''
-      
+
     end
   end
 

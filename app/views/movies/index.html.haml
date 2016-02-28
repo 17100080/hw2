@@ -16,6 +16,14 @@
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
+= form_tag root_path, :method => :get do
+  
+  - @all_ratings.each do |rating|
+    = rating
+    = check_box_tag "ratings[#{rating}]", 1, @selRatings.include?(rating) ? true : false 
+  = hidden_field(:ratings, :hidden)
+  = submit_tag 'Refresh'
+
 = link_to 'Add new movie', new_movie_path
 = link_to 'Update a movie', match_title_movies_path
 = link_to 'Delete movie', to_delete_movies_path
